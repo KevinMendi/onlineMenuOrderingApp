@@ -21,6 +21,8 @@ if(isset($_POST['category']))
 }
 
 
+
+
 ?>
 
 
@@ -124,8 +126,26 @@ if(isset($_POST['category']))
                                 </ul>                                
                             </div>
                             <div class="action">
-                                <a href="product-detail.php?read=<?php echo $row['fooditem_ID']; ?>" class="btn btn-info waves-effect"><i class="zmdi zmdi-eye"></i></a>
-                                <a href="javascript:void(0);" class="btn btn-primary waves-effect">ADD TO CART</a>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="product-detail.php?read=<?php echo $row['fooditem_ID']; ?>" class="btn btn-info waves-effect"><i class="zmdi zmdi-eye"></i></a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control show-tick ms select2" data-placeholder="Select">
+                                            <?php
+                                                for($i=0; $i<=10; $i++)
+                                                    {
+
+                                                        echo "<option value=".$i.">".$i."</option>";
+                                                    }
+                                            ?> 
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <a href="javascript:void(0);" class="btn btn-primary waves-effect">ADD TO CART</a>
+                                    </div>
+                                </div>
+                                <!-- <button class="btn btn-primary waves-effect" id="addToCart" name="addToCart" value="<?php echo $row['fooditem_ID']; ?> onclick="addToCart();">Add To Cart</button> -->
                             </div>
                         </div>
                     </div>                
@@ -144,11 +164,16 @@ if(isset($_POST['category']))
    if(action_name == "category"){
        document.getElementById('userAction').action = "index.php";
        document.getElementById('userAction').submit();
-   }else if(action_name == "edit"){
-       document.getElementById('userAction').action = "cert-edit.php";
-       document.getElementById('userAction').submit();
    }
-}
+
+   function addToCart(){
+    $.ajax({
+        type: "POST",
+        url: "index.php", 
+        data: "values=" + $("#addToCart");        
+    });
+
+    }
 </script>
 <!-- Jquery Core Js --> 
 <script src="assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
